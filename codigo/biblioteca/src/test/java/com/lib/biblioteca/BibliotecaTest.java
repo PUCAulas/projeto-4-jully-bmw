@@ -14,7 +14,7 @@ public class BibliotecaTest {
 
     @Before
     public void setUp() {
-        biblioteca = new Biblioteca();
+        biblioteca = Biblioteca.getInstance();
     }
 
     @Test
@@ -75,7 +75,7 @@ public class BibliotecaTest {
 
         Item livro = new Livro("Olhai os Lírios do Campo", "Erico Verissimo", 2022);
         biblioteca.adicionarItem(livro);
-        
+
         biblioteca.emprestarItem(usuario, livro, biblioteca);
 
         assertTrue(usuario.getItensEmEmprestismo().contains(livro));

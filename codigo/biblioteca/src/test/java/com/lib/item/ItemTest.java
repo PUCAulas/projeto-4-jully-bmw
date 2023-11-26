@@ -23,10 +23,10 @@ public class ItemTest {
 
     @Test
     public void testEmprestarItem() {
-        Biblioteca biblioteca = new Biblioteca();
+        Biblioteca biblioteca = Biblioteca.getInstance();
         Usuario user = new Usuario("belle", 0, false);
         biblioteca.getUsuarios().add(new Usuario("belle", 0, false));
-        
+
         Item livro = new Livro("Clean Code", "Robert C. Martin", 2008);
         biblioteca.getAcervo().add(new Livro("Clean Code", "Robert C. Martin", 2008));
         int initialQntdDeVezesEmprestado = livro.getQntdDeVezesEmprestado();

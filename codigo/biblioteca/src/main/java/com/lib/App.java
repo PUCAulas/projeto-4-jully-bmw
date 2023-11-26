@@ -15,7 +15,7 @@ public class App {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        Biblioteca biblioteca = new Biblioteca();
+        Biblioteca biblioteca = Biblioteca.getInstance();
 
         biblioteca.getUsuarios().add(new Usuario("belle", 0, false));
         biblioteca.getUsuarios().add(new Usuario("jully", 0, false));

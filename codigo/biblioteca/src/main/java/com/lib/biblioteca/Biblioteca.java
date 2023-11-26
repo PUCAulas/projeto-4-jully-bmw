@@ -17,10 +17,18 @@ import com.lib.usuario.Usuario;
 public class Biblioteca {
     private List<Item> acervo;
     private List<Usuario> usuarios;
+    private static Biblioteca instanciaUnica;
 
-    public Biblioteca() {
+    private Biblioteca() {
         acervo = new ArrayList<>();
         usuarios = new ArrayList<>();
+    }
+
+    public static Biblioteca getInstance() {
+        if (instanciaUnica == null) {
+            instanciaUnica = new Biblioteca();
+        }
+        return instanciaUnica;
     }
 
     public void pesquisarItens() {
