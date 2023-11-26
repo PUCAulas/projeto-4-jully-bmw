@@ -12,6 +12,12 @@ import com.lib.estante.Revista;
 import com.lib.estante.Tese;
 import com.lib.item.Item;
 import com.lib.item.Item.ETipoItem;
+import com.lib.itemFactory.CdFactory;
+import com.lib.itemFactory.DvdFactory;
+import com.lib.itemFactory.IItemFactory;
+import com.lib.itemFactory.LivroFactory;
+import com.lib.itemFactory.RevistaFactory;
+import com.lib.itemFactory.TeseFactory;
 import com.lib.usuario.Usuario;
 
 public class Biblioteca {
@@ -308,41 +314,42 @@ public class Biblioteca {
         System.out.println("5. DVD");
 
         int escolhaTipo = scanner.nextInt();
-        scanner.nextLine(); // Consumir a nova linha após a leitura do número.
+        scanner.nextLine();
 
-        Item novoItem = null;
+        IItemFactory factory = null;
 
         switch (escolhaTipo) {
             case 1:
-                novoItem = new Livro(titulo, autor, anoPublicacao);
-                biblioteca.getAcervo().add(novoItem);
+                factory = new LivroFactory();
                 break;
             case 2:
-                novoItem = new Revista(titulo, autor, anoPublicacao);
-                biblioteca.getAcervo().add(novoItem);
+                factory = new RevistaFactory();
                 break;
             case 3:
-                novoItem = new Tese(titulo, autor, anoPublicacao);
-                biblioteca.getAcervo().add(novoItem);
+                factory = new TeseFactory();
                 break;
             case 4:
-                novoItem = new Cd(titulo, autor, anoPublicacao);
-                biblioteca.getAcervo().add(novoItem);
+                factory = new CdFactory();
                 break;
             case 5:
-                novoItem = new Dvd(titulo, autor, anoPublicacao);
-                biblioteca.getAcervo().add(novoItem);
+                factory = new DvdFactory();
                 break;
             default:
                 System.out.println("Tipo de item inválido. Nenhum item foi criado.");
         }
 
-        if (novoItem != null) {
-            System.out.println("Item criado com sucesso.");
+        if (factory != null) {
+            Item novoItem = factory.criarItem(titulo, autor, anoPublicacao);
+            if (novoItem != null) {
+                biblioteca.getAcervo().add(novoItem);
+                System.out.println("Item criado com sucesso.");
+                scanner.close();
+                return novoItem;
+            }
         }
 
         scanner.close();
-        return novoItem;
+        return null;
     }
 
     public void editarItem(Biblioteca biblioteca, Scanner scanner) {
