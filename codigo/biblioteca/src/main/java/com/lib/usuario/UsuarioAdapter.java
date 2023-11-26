@@ -7,6 +7,9 @@ public class UsuarioAdapter extends Usuario {
         super(nome, qntItensEmprestados, isEmprestimoAtraso);
     }
 
+    public String curso;
+    public List<String> categoriasDeInteresse;
+
     @Override
     public String getCurso() {
         return curso;

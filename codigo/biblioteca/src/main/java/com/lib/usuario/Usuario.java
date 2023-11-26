@@ -12,9 +12,6 @@ public class Usuario implements IUsuarioAdapter {
     private List<Item> historicoDeItens;
     private List<Item> itensEmEmprestismo;
 
-    public String curso;
-    public List<String> categoriasDeInteresse;
-
     public Usuario(String nome, int qntItensEmprestados, boolean isEmprestimoAtraso) {
         this.nome = nome;
         this.qntItensEmprestados = qntItensEmprestados;

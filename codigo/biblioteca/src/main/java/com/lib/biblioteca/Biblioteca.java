@@ -5,11 +5,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
-import com.lib.estante.Cd;
-import com.lib.estante.Dvd;
-import com.lib.estante.Livro;
-import com.lib.estante.Revista;
-import com.lib.estante.Tese;
 import com.lib.item.Item;
 import com.lib.item.Item.ETipoItem;
 import com.lib.itemFactory.CdFactory;
