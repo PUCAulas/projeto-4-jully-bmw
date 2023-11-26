@@ -9,7 +9,7 @@ import com.lib.estante.Livro;
 import com.lib.estante.Revista;
 import com.lib.estante.Tese;
 import com.lib.item.Item;
-import com.lib.usuario.Usuario;
+import com.lib.usuario.UsuarioAdapter;
 
 public class App {
     public static void main(String[] args) {
@@ -17,10 +17,10 @@ public class App {
 
         Biblioteca biblioteca = Biblioteca.getInstance();
 
-        biblioteca.getUsuarios().add(new Usuario("belle", 0, false));
-        biblioteca.getUsuarios().add(new Usuario("jully", 0, false));
-        biblioteca.getUsuarios().add(new Usuario("leo", 0, false));
-        biblioteca.getUsuarios().add(new Usuario("maria", 0, false));
+        biblioteca.getUsuarios().add(new UsuarioAdapter("belle", 0, false));
+        biblioteca.getUsuarios().add(new UsuarioAdapter("jully", 0, false));
+        biblioteca.getUsuarios().add(new UsuarioAdapter("leo", 0, false));
+        biblioteca.getUsuarios().add(new UsuarioAdapter("maria", 0, false));
 
         for (int i = 1; i <= 3; i++) {
             biblioteca.getAcervo().add(new Livro("Livro " + i, "Autor " + i, 2000 + i *
@@ -64,7 +64,7 @@ public class App {
 
                     biblioteca.relatorioPorItem();
 
-                    Usuario usuarioEmprestimo = biblioteca.buscarUsuario(nomeUser);
+                    UsuarioAdapter usuarioEmprestimo = (UsuarioAdapter) biblioteca.buscarUsuario(nomeUser);
 
                     System.out.print("Digite o nome do item que deseja emprestar: ");
                     String nomeItem = scannerEmprestimo.nextLine();
@@ -83,7 +83,7 @@ public class App {
                     System.out.print("Digite o nome do usuário: ");
                     String scUser = scannerDevolucao.nextLine();
 
-                    Usuario usuarioDevolucao = biblioteca.buscarUsuario(scUser);
+                    UsuarioAdapter usuarioDevolucao = (UsuarioAdapter) biblioteca.buscarUsuario(scUser);
 
                     System.out.print("Digite o nome do item que deseja emprestar: ");
                     String scItem = scannerDevolucao.nextLine();
@@ -158,7 +158,7 @@ public class App {
                         System.out.print("Digite o nome do novo usuário: ");
                         String nome = scanner.next(); // Use next() em vez de nextLine() aqui
 
-                        Usuario novoUsuario = new Usuario(nome, 0, false);
+                        UsuarioAdapter novoUsuario = new UsuarioAdapter(nome, 0, false);
                         biblioteca.adicionarUsuario(novoUsuario);
 
                         System.out.println("Novo usuário adicionado com sucesso!");

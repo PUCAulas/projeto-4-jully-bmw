@@ -5,12 +5,15 @@ import java.util.List;
 
 import com.lib.item.Item;
 
-public class Usuario {
+public class Usuario implements IUsuarioAdapter {
     private String nome;
     private int qntItensEmprestados;
     private boolean isEmprestimoAtraso;
     private List<Item> historicoDeItens;
     private List<Item> itensEmEmprestismo;
+
+    public String curso;
+    public List<String> categoriasDeInteresse;
 
     public Usuario(String nome, int qntItensEmprestados, boolean isEmprestimoAtraso) {
         this.nome = nome;
@@ -74,6 +77,30 @@ public class Usuario {
 
     public void setItensEmEmprestismo(List<Item> itensEmEmprestismo) {
         this.itensEmEmprestismo = itensEmEmprestismo;
+    }
+
+    @Override
+    public String getCurso() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getCurso'");
+    }
+
+    @Override
+    public void setCurso(String curso) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setCurso'");
+    }
+
+    @Override
+    public List<String> getCategoriasDeInteresse() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getCategoriasDeInteresse'");
+    }
+
+    @Override
+    public void setCategoriasDeInteresse(List<String> categoriasDeInteresse) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setCategoriasDeInteresse'");
     }
 
 }
