@@ -24,6 +24,18 @@ public class Usuario {
         return !isEmprestimoAtraso && qntItensEmprestados < 3;
     }
 
+    public boolean jaPossuiExemplar(Item item) {
+        for (Item itemEmprestado : itensEmEmprestismo) {
+
+            if (itemEmprestado.getTitulo().equalsIgnoreCase(item.getTitulo())
+                    && itemEmprestado.getAutor().equalsIgnoreCase(item.getAutor())
+                    && itemEmprestado.getAnoPublicacao() == item.getAnoPublicacao()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public String getNome() {
         return nome;
     }

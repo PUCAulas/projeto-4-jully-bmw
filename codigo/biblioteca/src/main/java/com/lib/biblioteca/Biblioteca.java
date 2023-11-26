@@ -341,6 +341,7 @@ public class Biblioteca {
             System.out.println("Item criado com sucesso.");
         }
 
+        scanner.close();
         return novoItem;
     }
 
@@ -394,58 +395,67 @@ public class Biblioteca {
     }
 
     public void emprestarItem(Usuario usuario, Item itemParaEmprestar, Biblioteca biblioteca) {
+        try {
+            if (itemParaEmprestar == null) {
+                throw new IllegalArgumentException("Item não encontrado na biblioteca.");
+            }
 
-        if (itemParaEmprestar == null) {
-            System.out.println("Item não encontrado na biblioteca.");
-            return;
+            if (usuario.isEmprestimoAtraso()) {
+                throw new IllegalArgumentException(
+                        "Usuário com empréstimo em atraso. Não é possível pegar mais itens.");
+            }
+
+            if (usuario.getItensEmEmprestismo().size() >= 3) {
+                throw new IllegalArgumentException("Usuário atingiu o limite de itens emprestados.");
+            }
+
+            if (!itemParaEmprestar.podeSerEmprestado()) {
+                throw new UnsupportedOperationException("Este item não é emprestável.");
+            }
+
+            if (itemParaEmprestar.getQuantidade() <= 0) {
+                throw new IllegalStateException("Não há exemplares disponíveis para empréstimo deste item.");
+            }
+
+            if (usuario.jaPossuiExemplar(itemParaEmprestar)) {
+                throw new IllegalStateException("O aluno já possui um exemplar do item que está tentando pegar.");
+            }
+
+            itemParaEmprestar.setQuantidade(itemParaEmprestar.getQuantidade() - 1); // Reduz a quantidade do item na
+                                                                                    // biblioteca
+            itemParaEmprestar.atualizarQntdDeVezesEmprestado(1); // Incrementa o contador de empréstimos do item
+
+            usuario.getItensEmEmprestismo().add(itemParaEmprestar);
+
+            System.out.println("Item emprestado com sucesso.");
+        } catch (IllegalArgumentException | IllegalStateException | UnsupportedOperationException e) {
+            System.out.println("Erro ao tentar realizar o empréstimo: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Ocorreu um erro inesperado ao tentar realizar o empréstimo.");
+            e.printStackTrace();
         }
-
-        // Verifica se o usuário tem empréstimos em atraso
-        if (usuario.isEmprestimoAtraso()) {
-            System.out.println("Usuário com empréstimo em atraso. Não é possível pegar mais itens.");
-            return;
-        }
-
-        // Verifica se o usuário já atingiu o limite de itens emprestados (limite de 3)
-        if (usuario.getItensEmEmprestismo().size() >= 3) {
-            System.out.println("Usuário atingiu o limite de itens emprestados.");
-            return;
-        }
-
-        // Verifica se o item é emprestável
-        if (!itemParaEmprestar.podeSerEmprestado()) {
-            System.out.println("Este item não é emprestável.");
-            return;
-        }
-
-        // Verifica a quantidade disponível do item na biblioteca
-        if (itemParaEmprestar.getQuantidade() <= 0) {
-            System.out.println("Não há exemplares disponíveis para empréstimo deste item.");
-            return;
-        }
-
-        // Realiza o empréstimo
-        itemParaEmprestar.setQuantidade(itemParaEmprestar.getQuantidade() - 1); // Reduz a quantidade do item na
-                                                                                // biblioteca
-        itemParaEmprestar.atualizarQntdDeVezesEmprestado(1); // Incrementa o contador de empréstimos do item
-
-        // Atualiza a lista de itens emprestados pelo usuário
-        usuario.getItensEmEmprestismo().add(itemParaEmprestar);
-
-        System.out.println("Item emprestado com sucesso.");
     }
 
     public void devolverItem(Usuario usuario, Item itemDevolvido) {
-        if (itemDevolvido != null) {
-            // Remove o item da lista de itens emprestados pelo usuário
-            usuario.getItensEmEmprestismo().remove(itemDevolvido);
+        try {
+            if (itemDevolvido != null) {
 
-            // Incrementa a quantidade do item na biblioteca
-            itemDevolvido.setQuantidade(itemDevolvido.getQuantidade() + 1);
+                if (!usuario.getItensEmEmprestismo().remove(itemDevolvido)) {
+                    throw new IllegalArgumentException(
+                            "Item não encontrado na lista de itens emprestados pelo usuário.");
+                }
 
-            System.out.println("Item devolvido com sucesso.");
-        } else {
-            System.out.println("Item não encontrado na lista de itens emprestados pelo usuário.");
+                itemDevolvido.setQuantidade(itemDevolvido.getQuantidade() + 1);
+
+                System.out.println("Item devolvido com sucesso.");
+            } else {
+                throw new IllegalArgumentException("Item para devolução não pode ser nulo.");
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro ao tentar devolver o item: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("Ocorreu um erro inesperado ao tentar devolver o item.");
+            e.printStackTrace();
         }
     }
 
