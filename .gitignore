@@ -1,1 +1,29 @@
 desktop.ini
+# Arquivos do Eclipse
+.classpath
+.project
+.settings/
+
+# Arquivos do IntelliJ IDEA
+.idea/
+
+# Pasta de compilação do Maven
+target/
+
+# Arquivo de configuração do Maven
+mvnw
+mvnw.cmd
+.mvn/
+
+# Logs
+log/
+*.log
+
+# Arquivos de compilação Java
+*.class
+
+# Arquivos de configuração do Maven
+*.iml
+*.ipr
+*.iws
+
