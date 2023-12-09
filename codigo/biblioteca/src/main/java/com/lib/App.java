@@ -9,6 +9,7 @@ import com.lib.estante.Livro;
 import com.lib.estante.Revista;
 import com.lib.estante.Tese;
 import com.lib.item.Item;
+import com.lib.recomendacaoLivro.RecomendacaoLivro;
 import com.lib.usuario.UsuarioAdapter;
 
 public class App {
@@ -41,6 +42,7 @@ public class App {
             System.out.println("4. Fazer empréstimo");
             System.out.println("5. Devolver empréstimo");
             System.out.println("6. Emitir relatórios");
+            System.out.println("7. Recomendar livros");
             System.out.println("0. Sair");
 
             int opcao = scanner.nextInt();
@@ -100,6 +102,17 @@ public class App {
                 case 6:
                     subMenuRelatorio(biblioteca, scanner);
                     break;
+
+
+                case 7: // Adicionando a opção de recomendar livros
+                Scanner scannerRecomendacao = new Scanner(System.in);
+                System.out.print("Digite o nome do usuário para recomendação: ");
+                String nomeUsuarioRecomendacao = scannerRecomendacao.nextLine();
+                UsuarioAdapter usuarioRecomendacao = (UsuarioAdapter) biblioteca.buscarUsuario(nomeUsuarioRecomendacao);
+
+                RecomendacaoLivro recomendacaoLivro = new RecomendacaoLivro();
+                recomendacaoLivro.recomendar(usuarioRecomendacao, biblioteca);
+                break;
 
                 case 0:
                     System.out.println("Finalizando atendimento... Até mais!");
