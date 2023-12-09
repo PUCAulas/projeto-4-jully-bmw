@@ -59,26 +59,53 @@ public class App {
                     biblioteca.pesquisarItens();
                     break;
                 case 4:
+                    // Scanner scannerEmprestimo = new Scanner(System.in);
+
+                    // System.out.print("Digite o nome do usuário: ");
+                    // String nomeUser = scannerEmprestimo.nextLine();
+
+                    // biblioteca.relatorioPorItem();
+
+                    // UsuarioAdapter usuarioEmprestimo = (UsuarioAdapter) biblioteca.buscarUsuario(nomeUser);
+
+                    // System.out.print("Digite o nome do item que deseja emprestar: ");
+                    // String nomeItem = scannerEmprestimo.nextLine();
+
+                    // Item itemParaEmprestar = biblioteca.buscarItemPorNome(nomeItem);
+
+                    // if (itemParaEmprestar != null) {
+                    //     biblioteca.emprestarItem(usuarioEmprestimo, itemParaEmprestar, biblioteca);
+                    // } else {
+                    //     System.out.println("Item não encontrado na biblioteca.");
+                    // }
+                    // break;
+
                     Scanner scannerEmprestimo = new Scanner(System.in);
 
                     System.out.print("Digite o nome do usuário: ");
                     String nomeUser = scannerEmprestimo.nextLine();
-
+                
                     biblioteca.relatorioPorItem();
-
+                
+                    // Verifique se o usuário existe antes de tentar emprestar o item
                     UsuarioAdapter usuarioEmprestimo = (UsuarioAdapter) biblioteca.buscarUsuario(nomeUser);
-
-                    System.out.print("Digite o nome do item que deseja emprestar: ");
-                    String nomeItem = scannerEmprestimo.nextLine();
-
-                    Item itemParaEmprestar = biblioteca.buscarItemPorNome(nomeItem);
-
-                    if (itemParaEmprestar != null) {
-                        biblioteca.emprestarItem(usuarioEmprestimo, itemParaEmprestar, biblioteca);
+                
+                    if (usuarioEmprestimo != null) {
+                        System.out.print("Digite o nome do item que deseja emprestar: ");
+                        String nomeItem = scannerEmprestimo.nextLine();
+                
+                        Item itemParaEmprestar = biblioteca.buscarItemPorNome(nomeItem);
+                
+                        if (itemParaEmprestar != null) {
+                            biblioteca.emprestarItem(usuarioEmprestimo, itemParaEmprestar, biblioteca);
+                        } else {
+                            System.out.println("Item não encontrado na biblioteca.");
+                        }
                     } else {
-                        System.out.println("Item não encontrado na biblioteca.");
+                        System.out.println("Usuário não encontrado na biblioteca.");
                     }
                     break;
+                
                 case 5:
                     Scanner scannerDevolucao = new Scanner(System.in);
 
