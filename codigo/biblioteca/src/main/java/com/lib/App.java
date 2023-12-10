@@ -9,6 +9,7 @@ import com.lib.estante.Livro;
 import com.lib.estante.Revista;
 import com.lib.estante.Tese;
 import com.lib.item.Item;
+import com.lib.recomendacaoLivro.RecomendacaoLivro;
 import com.lib.usuario.UsuarioAdapter;
 
 public class App {
@@ -41,6 +42,7 @@ public class App {
             System.out.println("4. Fazer empréstimo");
             System.out.println("5. Devolver empréstimo");
             System.out.println("6. Emitir relatórios");
+            System.out.println("7. Recomendar livros");
             System.out.println("0. Sair");
 
             int opcao = scanner.nextInt();
@@ -57,26 +59,53 @@ public class App {
                     biblioteca.pesquisarItens();
                     break;
                 case 4:
+                    // Scanner scannerEmprestimo = new Scanner(System.in);
+
+                    // System.out.print("Digite o nome do usuário: ");
+                    // String nomeUser = scannerEmprestimo.nextLine();
+
+                    // biblioteca.relatorioPorItem();
+
+                    // UsuarioAdapter usuarioEmprestimo = (UsuarioAdapter) biblioteca.buscarUsuario(nomeUser);
+
+                    // System.out.print("Digite o nome do item que deseja emprestar: ");
+                    // String nomeItem = scannerEmprestimo.nextLine();
+
+                    // Item itemParaEmprestar = biblioteca.buscarItemPorNome(nomeItem);
+
+                    // if (itemParaEmprestar != null) {
+                    //     biblioteca.emprestarItem(usuarioEmprestimo, itemParaEmprestar, biblioteca);
+                    // } else {
+                    //     System.out.println("Item não encontrado na biblioteca.");
+                    // }
+                    // break;
+
                     Scanner scannerEmprestimo = new Scanner(System.in);
 
                     System.out.print("Digite o nome do usuário: ");
                     String nomeUser = scannerEmprestimo.nextLine();
-
+                
                     biblioteca.relatorioPorItem();
-
+                
+                    // Verifique se o usuário existe antes de tentar emprestar o item
                     UsuarioAdapter usuarioEmprestimo = (UsuarioAdapter) biblioteca.buscarUsuario(nomeUser);
-
-                    System.out.print("Digite o nome do item que deseja emprestar: ");
-                    String nomeItem = scannerEmprestimo.nextLine();
-
-                    Item itemParaEmprestar = biblioteca.buscarItemPorNome(nomeItem);
-
-                    if (itemParaEmprestar != null) {
-                        biblioteca.emprestarItem(usuarioEmprestimo, itemParaEmprestar, biblioteca);
+                
+                    if (usuarioEmprestimo != null) {
+                        System.out.print("Digite o nome do item que deseja emprestar: ");
+                        String nomeItem = scannerEmprestimo.nextLine();
+                
+                        Item itemParaEmprestar = biblioteca.buscarItemPorNome(nomeItem);
+                
+                        if (itemParaEmprestar != null) {
+                            biblioteca.emprestarItem(usuarioEmprestimo, itemParaEmprestar, biblioteca);
+                        } else {
+                            System.out.println("Item não encontrado na biblioteca.");
+                        }
                     } else {
-                        System.out.println("Item não encontrado na biblioteca.");
+                        System.out.println("Usuário não encontrado na biblioteca.");
                     }
                     break;
+                
                 case 5:
                     Scanner scannerDevolucao = new Scanner(System.in);
 
@@ -100,6 +129,17 @@ public class App {
                 case 6:
                     subMenuRelatorio(biblioteca, scanner);
                     break;
+
+
+                case 7: // Adicionando a opção de recomendar livros
+                Scanner scannerRecomendacao = new Scanner(System.in);
+                System.out.print("Digite o nome do usuário para recomendação: ");
+                String nomeUsuarioRecomendacao = scannerRecomendacao.nextLine();
+                UsuarioAdapter usuarioRecomendacao = (UsuarioAdapter) biblioteca.buscarUsuario(nomeUsuarioRecomendacao);
+
+                RecomendacaoLivro recomendacaoLivro = new RecomendacaoLivro();
+                recomendacaoLivro.recomendar(usuarioRecomendacao, biblioteca);
+                break;
 
                 case 0:
                     System.out.println("Finalizando atendimento... Até mais!");
