@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.lib.biblioteca.Biblioteca;
 import com.lib.estante.Livro;
 import com.lib.item.Item;
 import com.lib.usuario.Usuario;

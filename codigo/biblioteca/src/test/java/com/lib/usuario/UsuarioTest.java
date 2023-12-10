@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import com.lib.estante.Livro;
 import com.lib.item.Item;
+import com.lib.usuario.Usuario;
 
 public class UsuarioTest {
     private Usuario usuario;

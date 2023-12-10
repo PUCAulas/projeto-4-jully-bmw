@@ -3,9 +3,9 @@ package com.lib.item;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
+import com.lib.biblioteca.Biblioteca;
 import com.lib.estante.Livro;
 import com.lib.usuario.Usuario;
-import com.lib.biblioteca.Biblioteca;
 
 public class ItemTest {
 
